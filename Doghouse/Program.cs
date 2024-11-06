@@ -2,6 +2,8 @@ using Doghouse.Data;
 using Doghouse.Helpers;
 using Doghouse.Interfaces;
 using Doghouse.Repositories;
+using Doghouse.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +20,25 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IDogRepository, DogRepository>();
 
+builder.Services.AddScoped<DogCreationValidationFilter>();
+
+builder.Services.AddScoped<GeneralExceptionFilter>();
+
+builder.Services.AddScoped<QueryValidationFilterAttribute>();
+
+builder.Services.Configure<ApiBehaviorOptions>(options
+    => options.SuppressModelStateInvalidFilter = true);
+
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowNextJs",
+        builder => builder.WithOrigins("http://localhost:3000", "http://31.134.64.93:3000", "https://31.134.64.93:3000")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials());
+});
 
 var app = builder.Build();
 
@@ -28,6 +48,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+app.UseCors("AllowNextJs");
 
 app.UseMiddleware<RateLimiter>();
 

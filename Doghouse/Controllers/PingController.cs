@@ -3,6 +3,7 @@
 namespace Doghouse.Controllers
 {
     //inheritance of ControllerBase is better than COntroller if we don't need to serve views
+    [ApiController]
     public class PingController : ControllerBase 
     {
         [HttpGet]

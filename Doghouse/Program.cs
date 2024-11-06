@@ -37,7 +37,7 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowNextJs",
-        builder => builder.WithOrigins("http://localhost:3000", "http://31.134.64.93:3000", "https://31.134.64.93:3000")
+        builder => builder.WithOrigins("http://localhost:3000")
                           .AllowAnyHeader()
                           .AllowAnyMethod()
                           .AllowCredentials());

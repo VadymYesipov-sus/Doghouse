@@ -1,7 +1,7 @@
-﻿using Doghouse.Helpers;
+﻿using Doghouse.Filters;
+using Doghouse.Helpers;
 using Doghouse.Interfaces;
 using Doghouse.Models;
-using Doghouse.Services;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
@@ -9,40 +9,33 @@ using System.Text.Json;
 namespace Doghouse.Controllers
 {
     [ApiController]
+    [Route("dog")]
     [ServiceFilter(typeof(GeneralExceptionFilter))]
     public class DogController : Controller
     {
-        private readonly IDogRepository _dogRepository;
 
-        public DogController(IDogRepository dogRepository)
+        private readonly IDogService _dogService;
+
+        public DogController(IDogService dogService)
         {
-            _dogRepository = dogRepository;
+            _dogService = dogService;
         }
 
         [HttpGet]
-        [Route("dog")]
         [ServiceFilter(typeof(QueryValidationFilterAttribute))]
         public async Task<IActionResult> GetAllDogsAsync([FromQuery] DogQueryObject query)
         {
-            var paginatedDogs = await _dogRepository.GetAllAsync(query);
+            var paginatedDogs = await _dogService.GetAllDogsAsync(query);
 
             return Ok(paginatedDogs);
         }
 
         [HttpPost]
-        [Route("dog")]
         [ServiceFilter(typeof(DogCreationValidationFilter))]
         public async Task<IActionResult> CreateDogAsync([FromBody] DogCreateDto dogCreateDto)
         {
-            Dog newDog = new Dog
-            {
-                Name = dogCreateDto.Name,
-                Color = dogCreateDto.Color,
-                TailLength = dogCreateDto.TailLength,
-                Weight = dogCreateDto.Weight,
-            };
+            var newDog = await _dogService.CreateDogAsync(dogCreateDto);
 
-            await _dogRepository.CreateAsync(newDog);
             return Ok(newDog);
         }
 

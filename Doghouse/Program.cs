@@ -1,4 +1,5 @@
 using Doghouse.Data;
+using Doghouse.Filters;
 using Doghouse.Helpers;
 using Doghouse.Interfaces;
 using Doghouse.Repositories;
@@ -25,6 +26,8 @@ builder.Services.AddScoped<DogCreationValidationFilter>();
 builder.Services.AddScoped<GeneralExceptionFilter>();
 
 builder.Services.AddScoped<QueryValidationFilterAttribute>();
+
+builder.Services.AddScoped<IDogService, DogService>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options
     => options.SuppressModelStateInvalidFilter = true);

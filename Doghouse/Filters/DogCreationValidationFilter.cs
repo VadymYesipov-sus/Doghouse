@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Text.Json;
 
-namespace Doghouse.Services
+namespace Doghouse.Filters
 {
     public class DogCreationValidationFilter : IAsyncActionFilter
     {

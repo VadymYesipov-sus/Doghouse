@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Doghouse.Services
+namespace Doghouse.Filters
 {
     public class GeneralExceptionFilter : IExceptionFilter
     {
@@ -23,10 +23,10 @@ namespace Doghouse.Services
 
             context.Result = new ObjectResult($"An unexpected error occurred: {exceptionMessage}")
             {
-                StatusCode = 500 
+                StatusCode = 500
             };
 
-            context.ExceptionHandled = true; 
+            context.ExceptionHandled = true;
         }
 
     }

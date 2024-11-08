@@ -4,7 +4,7 @@ using Doghouse.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Doghouse.Services
+namespace Doghouse.Filters
 {
     public class QueryValidationFilterAttribute : IAsyncActionFilter
     {

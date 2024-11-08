@@ -9,7 +9,7 @@ using System.Text.Json;
 namespace Doghouse.Controllers
 {
     [ApiController]
-    [Route("dog")]
+    [Route("dogs")]
     [ServiceFilter(typeof(GeneralExceptionFilter))]
     public class DogController : Controller
     {

@@ -1,4 +1,4 @@
-# **Web API Project - Practice & Learning**
+# **Doghouse Web API Project - Practice & Learning**
 
 ## Project Overview
 This project is a Web API designed primarily for practice and skill improvement. The main focus was on implementing common best practices such as pagination, query objects, filters, and middleware configuration. During development, I followed key software principles like SOLID and RESTful design to ensure the API is well-structured, maintainable, and scalable.
